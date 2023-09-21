@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,6 +27,10 @@ namespace LM_JARVIS
     public partial class MainWindow : Window
     {
         private string settingsFilePath = "setting.ini";
+        private string ScreenShotFileName = "";
+        string savedFolderPath = "";
+        private bool subMonitorExists = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -146,7 +152,7 @@ namespace LM_JARVIS
             if (System.IO.File.Exists(settingsFilePath))
             {
                 // 설정 파일이 이미 존재하는 경우, 파일에서 폴더 경로를 읽어와서 TextBox에 표시
-                string savedFolderPath = System.IO.File.ReadAllText(settingsFilePath);
+                savedFolderPath = System.IO.File.ReadAllText(settingsFilePath);
                 TEXT_화면캡쳐_경로.Text = savedFolderPath;
             }
             else
@@ -156,6 +162,62 @@ namespace LM_JARVIS
                 System.IO.File.WriteAllText(settingsFilePath, defaultFolderPath);
                 TEXT_화면캡쳐_경로.Text = defaultFolderPath;
             }
+        }
+        private void BUTTON_화면캡쳐_캡쳐_Click(object sender, RoutedEventArgs e)
+        {
+            // 콤보박스에서 선택된 항목을 확인하여 캡처 대상 모니터를 결정
+            Screen targetScreen = null;
+
+            if (subMonitorExists && COMOBO_화면캡쳐_모니터.SelectedItem != null && COMOBO_화면캡쳐_모니터.SelectedItem.ToString() == "Sub")
+            {
+                // "Sub" 모니터를 캡처
+                targetScreen = Screen.AllScreens.FirstOrDefault(s => s.Primary == false);
+            }
+            else
+            {
+                // "Main" 모니터 또는 서브 모니터가 없을 때 "Main" 모니터를 캡처
+                targetScreen = Screen.AllScreens.FirstOrDefault(s => s.Primary == true);
+            }
+
+            if (targetScreen != null)
+            {
+                // 캡처할 모니터를 지정하고 스크린샷 캡처
+                using (Bitmap bmp = new Bitmap(targetScreen.Bounds.Width, targetScreen.Bounds.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.CopyFromScreen(targetScreen.Bounds.Location, new System.Drawing.Point(0, 0), targetScreen.Bounds.Size);
+                    }
+
+                    // 캡처된 이미지를 파일로 저장
+                    string screenshotPath = System.IO.Path.Combine(savedFolderPath, ScreenShotFileName);
+                    bmp.Save(screenshotPath, System.Drawing.Imaging.ImageFormat.Png);
+
+                    // 캡처 완료 메시지 표시
+                    System.Windows.MessageBox.Show($"스크린샷이 저장되었습니다: {screenshotPath}");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("캡처할 모니터를 찾을 수 없습니다.");
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 콤보박스 선택 변경 이벤트 핸들러
+            // 서브 모니터 존재 여부를 확인하고 "Sub" 옵션 활성화/비활성화
+            Screen[] screens = Screen.AllScreens;
+            subMonitorExists = screens.Length > 1;
+
+            // 서브 모니터가 없을 경우 "Sub" 옵션 비활성화
+            if (!subMonitorExists && COMOBO_화면캡쳐_모니터.SelectedItem != null && COMOBO_화면캡쳐_모니터.SelectedItem.ToString() == "Sub")
+            {
+                COMOBO_화면캡쳐_모니터.SelectedItem = "Main"; // "Main"으로 선택 변경
+            }
+
+            // "Sub" 옵션 활성화/비활성화
+            COMOBO_화면캡쳐_모니터.IsEnabled = subMonitorExists;
         }
 
         private string selectedOption = "입실"; // 기본값: 입실
@@ -211,10 +273,7 @@ namespace LM_JARVIS
 
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
 
         private void TEXT_제출인원관리_전체인원_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -243,6 +302,7 @@ namespace LM_JARVIS
         {
 
         }
+
 
     }
 }
