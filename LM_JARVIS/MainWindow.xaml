@@ -67,8 +67,8 @@
                         <ColumnDefinition Width="253*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="LABEL_화면캡쳐_날짜" Content="날짜" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Height="41" Width="57" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
-                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Height="41" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>
+                    <Label x:Name="LABEL_화면캡쳐_날짜" Content="날짜" HorizontalAlignment="Left" Margin="1,24,0,0" VerticalAlignment="Top" Height="41" Width="57" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="3"/>
+                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="4,36,0,0" VerticalAlignment="Top" Height="42" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>
                     <Button x:Name="BUTTON_화면캡쳐_폴더선택" Grid.Column="5" Content="폴더 선택" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,114,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더선택_Click"/>
                     <Button x:Name="BUTTON_화면캡쳐_폴더열기" Grid.Column="5" Content="폴더 열기" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,162,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더열기_Click"/>
                     <ComboBox x:Name="COMOBO_화면캡쳐_모니터" Grid.Column="5" HorizontalAlignment="Left" Height="29" Margin="154,262,0,0" Grid.Row="1" VerticalAlignment="Top" Width="199" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="4">
@@ -82,9 +82,9 @@
                         </Button.InputBindings>
                     </Button>
                     <Label x:Name="LABEL_화면캡쳐_경로지정" Content="경로 지정" HorizontalAlignment="Left" Margin="154,61,0,0" VerticalAlignment="Top" Height="41" Width="97" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="5"/>
-                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="1,33,0,0" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" IsReadOnly="True"/>
+                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="5" HorizontalAlignment="Left" Height="20" Margin="4,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" IsReadOnly="True" Grid.Row="1"/>
                     <TextBox x:Name="TEXT_화면캡쳐_경로" Grid.Column="6" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="27" Margin="9,119,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="411" TextChanged="TextBox_TextChanged_2" IsReadOnly="True"/>
-                    <ListBox x:Name="LISTBOX_화면캡쳐_리스트박스" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="186" Margin="10,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" SelectionChanged="LISTBOX_화면캡쳐_리스트박스_SelectionChanged">
+                    <ListBox x:Name="LISTBOX_화면캡쳐_리스트박스" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="167" Margin="10,70,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" SelectionChanged="LISTBOX_화면캡쳐_리스트박스_SelectionChanged">
                         <ListBoxItem x:Name="LISTBOX_화면캡쳐_입실" Content="입실" IsSelected="True" />
                         <ListBoxItem x:Name="LISTBOX_화면캡쳐_중간" Content="중간"/>
                         <ListBoxItem x:Name="LISTBOX_화면캡쳐_퇴실" Content="퇴실"/>
@@ -92,6 +92,8 @@
                         <ListBoxItem x:Name="LISTBOX_화면캡쳐_프로젝트" Content="프로젝트"/>
                         <ListBoxItem x:Name="LISTBOX_화면캡쳐_멘토링" Content="멘토링"/>
                     </ListBox>
+                    <TextBox x:Name="TEXT_화면캡쳐_리스트추가" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,243,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="132" Height="24"/>
+                    <Button x:Name="BUTTON_화면캡쳐_리스트추가" Grid.Column="3" Content="리스트에 추가" HorizontalAlignment="Left" Margin="10,272,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="132" Click="BUTTON_화면캡쳐_리스트추가_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_제출인원관리" Header="제출인원관리">
