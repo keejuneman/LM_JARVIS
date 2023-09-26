@@ -92,13 +92,13 @@
                         <ColumnDefinition Width="19*"/>
                         <ColumnDefinition Width="614*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TEXT_제출인원관리_전체인원" HorizontalAlignment="Left" Height="263" Margin="13,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" TextChanged="TEXT_제출인원관리_전체인원_TextChanged" Grid.Column="2"/>
-                    <TextBox x:Name="TEXT_제출인원관리_참여인원" HorizontalAlignment="Left" Height="263" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="127,41,0,0" Grid.Column="4"/>
+                    <TextBox x:Name="TEXT_제출인원관리_전체인원" HorizontalAlignment="Left" Height="263" Margin="13,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" TextChanged="TEXT_제출인원관리_전체인원_TextChanged" Grid.Column="2" AcceptsReturn="True"/>
+                    <TextBox x:Name="TEXT_제출인원관리_참여인원" HorizontalAlignment="Left" Height="263" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="127,41,0,0" Grid.Column="4" AcceptsReturn="True"/>
                     <TextBox x:Name="TEXT_제출인원관리_결과" HorizontalAlignment="Left" Height="302" Margin="388,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="4"/>
                     <Label x:Name="LABEL_제출인원관리_전체인원" Content="전체 인원" HorizontalAlignment="Left" Margin="13,15,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <Label x:Name="LABEL_제출인원관리_결과" Content="결과" HorizontalAlignment="Left" Margin="388,15,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <Label x:Name="LABEL_제출인원관리_참여인원" Content="참여 인원" HorizontalAlignment="Left" Margin="127,15,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-                    <Button x:Name="BUTTON_제출인원관리_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="13,312,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" Grid.Column="2"/>
+                    <Button x:Name="BUTTON_제출인원관리_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="13,312,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" Grid.Column="2" Click="BUTTON_제출인원관리_인원저장_Click"/>
                     <Button x:Name="BUTTON_제출인원관리_참여인원확인" Content="참여 인원 확인" HorizontalAlignment="Left" Height="31" Margin="127,312,0,0" VerticalAlignment="Top" Width="178" Grid.Column="4" Click="BUTTON_제출인원관리_참여인원확인_Click"/>
                 </Grid>
             </TabItem>
@@ -107,17 +107,18 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="79*"/>
                         <ColumnDefinition Width="14*"/>
-                        <ColumnDefinition Width="81*"/>
+                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="60*"/>
                         <ColumnDefinition Width="620*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TEXT_제출인원관리_전체인원_Copy" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="TEXT_제출인원관리_참여인원_Copy" HorizontalAlignment="Left" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="134,41,0,0" Grid.Column="3"/>
-                    <TextBox x:Name="TEXT_제출인원관리_결과_Copy" HorizontalAlignment="Left" Height="303" Margin="395,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="3"/>
-                    <Label x:Name="LABEL_제출인원관리_전체인원_Copy" Content="카테고리" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                    <Label x:Name="LABEL_제출인원관리_결과_Copy" Content="결과" HorizontalAlignment="Left" Margin="395,15,0,0" VerticalAlignment="Top" Grid.Column="3" RenderTransformOrigin="0.176,0.579"/>
-                    <Label x:Name="LABEL_제출인원관리_참여인원_Copy" Content="항목" HorizontalAlignment="Left" Margin="134,15,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Button x:Name="BUTTON_제출인원관리_인원저장_Copy" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="4"/>
-                    <Button x:Name="BUTTON_제출인원관리_참여인원확인_Copy" Content="카운팅" HorizontalAlignment="Left" Height="31" Margin="134,313,0,0" VerticalAlignment="Top" Width="178" Grid.Column="3"/>
+                    <TextBox x:Name="TEXT_카운트_카테고리" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="5" AcceptsReturn="True"/>
+                    <TextBox x:Name="TTEXT_카운트_항목" HorizontalAlignment="Left" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="133,41,0,0" Grid.Column="4" AcceptsReturn="True"/>
+                    <TextBox x:Name="TEXT_카운트_결과" HorizontalAlignment="Left" Height="303" Margin="394,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="4" AcceptsReturn="True"/>
+                    <Label x:Name="LABEL_카운트_전체인원" Content="카테고리" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <Label x:Name="LABEL_카운트_결과" Content="결과" HorizontalAlignment="Left" Margin="394,15,0,0" VerticalAlignment="Top" Grid.Column="4" RenderTransformOrigin="0.176,0.579"/>
+                    <Label x:Name="LABEL_카운트_참여인원" Content="항목" HorizontalAlignment="Left" Margin="133,15,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                    <Button x:Name="BUTTON_카운트_카테고리저장" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="5"/>
+                    <Button x:Name="BUTTON_카운트_카운팅" Content="카운팅" HorizontalAlignment="Left" Height="31" Margin="134,313,0,0" VerticalAlignment="Top" Width="178" Grid.Column="4"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_랜덤조편성" Header="랜덤조편성" Margin="-2,-2,-2,0">
@@ -128,15 +129,15 @@
                         <ColumnDefinition Width="159*"/>
                         <ColumnDefinition Width="438*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TEXT_제출인원관리_전체인원_Copy1" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="TEXT_제출인원관리_결과_Copy1" HorizontalAlignment="Left" Height="149" Margin="106,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="457" Grid.ColumnSpan="2" Grid.Column="2"/>
-                    <Label x:Name="LABEL_제출인원관리_전체인원_Copy1" Content="전체 인원" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Label x:Name="LABEL_제출인원관리_결과_Copy1" Content="결과" HorizontalAlignment="Left" Margin="106,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
-                    <Label x:Name="LABEL_제출인원관리_참여인원_Copy1" Content="참여 인원" HorizontalAlignment="Left" Margin="84,28,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Button x:Name="BUTTON_제출인원관리_인원저장_Copy1" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3"/>
-                    <Button x:Name="BUTTON_제출인원관리_참여인원확인_Copy1" Content="조 편성" HorizontalAlignment="Left" Height="54" Margin="235,78,0,0" VerticalAlignment="Top" Width="87" Grid.Column="3"/>
-                    <RadioButton Content="팀 당 인원" HorizontalAlignment="Left" Margin="94,76,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <RadioButton Content="팀 갯수" HorizontalAlignment="Left" Margin="94,110,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <TextBox x:Name="TEXT_랜덤조편성_전체인원" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" AcceptsReturn="True"/>
+                    <TextBox x:Name="TEXT_랜덤조편성_결과" HorizontalAlignment="Left" Height="149" Margin="106,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="457" Grid.ColumnSpan="2" Grid.Column="2" AcceptsReturn="True"/>
+                    <Label x:Name="LABEL_랜덤조편성_전체인원" Content="전체 인원" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LABEL_랜덤조편성_결과" Content="결과" HorizontalAlignment="Left" Margin="106,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
+                    <Label x:Name="LABEL_랜덤조편성_편성기준" Content="편성기준" HorizontalAlignment="Left" Margin="84,28,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Button x:Name="BUTTON_랜덤조편성_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3"/>
+                    <Button x:Name="BUTTON_랜덤조편성_조편성" Content="조 편성" HorizontalAlignment="Left" Height="54" Margin="235,78,0,0" VerticalAlignment="Top" Width="87" Grid.Column="3"/>
+                    <RadioButton  x:Name="RADIO_랜덤조편성_팀당인원" Content="팀 당 인원" HorizontalAlignment="Left" Margin="94,76,0,0" VerticalAlignment="Top" Grid.Column="3" GroupName="편성기준"/>
+                    <RadioButton  x:Name="RADIO_랜덤조편성_팀갯수" Content="팀 갯수" HorizontalAlignment="Left" Margin="94,110,0,0" VerticalAlignment="Top" Grid.Column="3" GroupName="편성기준"/>
                     <ComboBox HorizontalAlignment="Left" Margin="69,138,0,0" VerticalAlignment="Top" Width="126" Height="29" Grid.Column="3"/>
                 </Grid>
             </TabItem>

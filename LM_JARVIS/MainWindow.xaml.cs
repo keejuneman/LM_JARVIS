@@ -29,7 +29,7 @@ namespace LM_JARVIS
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
-
+        //스크린샷
         private string currentDate;
         private string time_selected;
         private string ScreenShotFileName;
@@ -38,9 +38,15 @@ namespace LM_JARVIS
         private string radiotextbox;
         private bool subMonitorExists = false;
 
+
+        //제출인원관리
+        private string membersFilePath = "member.ini";
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //스크린샷
             currentDate = DateTime.Now.ToString("yyMMdd");
             TEXT_화면캡쳐_날짜.Text = currentDate;
             radiotextbox = TEXT_화면캡쳐_라디오기타.Text;
@@ -57,6 +63,28 @@ namespace LM_JARVIS
                 System.IO.File.WriteAllText(settingsFilePath, savedFolderPath);
                 TEXT_화면캡쳐_경로.Text = savedFolderPath;
             }
+
+
+            //제출인원관리
+            try
+            {
+                if (File.Exists(membersFilePath))
+                {
+                    // 파일이 존재하면 파일에서 데이터를 읽어와서 텍스트 박스에 설정
+                    string membersText = File.ReadAllText(membersFilePath);
+                    TEXT_제출인원관리_전체인원.Text = membersText;
+                }
+                else
+                {
+                    System.IO.File.WriteAllText("member.ini", "");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"파일 불러오기 중 오류 발생: {ex.Message}");
+            }
+
+
         }
         // MENU
         private void HyperlinkMenuItem_Click(object sender, RoutedEventArgs e)
@@ -83,6 +111,12 @@ namespace LM_JARVIS
             System.Windows.Application.Current.Shutdown();
         }
 
+
+
+
+
+        //화면 캡쳐
+
         private void BUTTON_화면캡쳐_폴더열기_Click(object sender, RoutedEventArgs e)
         {
             string folderPathToOpen = TEXT_화면캡쳐_경로.Text; // 이전 이벤트에서 저장한 폴더 경로를 가져옵니다.
@@ -101,11 +135,6 @@ namespace LM_JARVIS
                 }
             }
         }
-
-
-
-
-        //화면 캡쳐
 
         private void Radio_control(object sender, RoutedEventArgs e)
         {
@@ -318,6 +347,22 @@ namespace LM_JARVIS
 
 
         // 제출인원 관리
+        private void BUTTON_제출인원관리_인원저장_Click(object sender, RoutedEventArgs e)
+        {
+            string contentToWrite = TEXT_제출인원관리_전체인원.Text; // 텍스트 박스의 내용 가져오기
+
+            try
+            {
+                File.WriteAllText(membersFilePath, contentToWrite);
+                System.Windows.MessageBox.Show("인원 정보가 저장되었습니다.");
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"파일 쓰기 중 오류 발생: {ex.Message}");
+            }
+        }
+
+
         private void TEXT_제출인원관리_참여인원_TextChanged(object sender, TextChangedEventArgs e)
         {
 
