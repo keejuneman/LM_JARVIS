@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters;
 using System.Diagnostics.Eventing.Reader;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace LM_JARVIS
 {
@@ -34,6 +35,7 @@ namespace LM_JARVIS
         private string ScreenShotFileName;
         private string settingsFilePath = "setting.ini";
         private string savedFolderPath;
+        private string radiotextbox;
         private bool subMonitorExists = false;
 
         public MainWindow()
@@ -41,7 +43,7 @@ namespace LM_JARVIS
             InitializeComponent();
             currentDate = DateTime.Now.ToString("yyMMdd");
             TEXT_화면캡쳐_날짜.Text = currentDate;
-
+            radiotextbox = TEXT_화면캡쳐_라디오기타.Text;
             // savedFolderPath를 설정 파일에서 읽어옵니다.
             if (System.IO.File.Exists(settingsFilePath))
             {
@@ -55,7 +57,7 @@ namespace LM_JARVIS
                 System.IO.File.WriteAllText(settingsFilePath, savedFolderPath);
                 TEXT_화면캡쳐_경로.Text = savedFolderPath;
             }
-        }   
+        }
         // MENU
         private void HyperlinkMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -104,21 +106,48 @@ namespace LM_JARVIS
 
 
         //화면 캡쳐
-        private void LISTBOX_화면캡쳐_리스트박스_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void Radio_control(object sender, RoutedEventArgs e)
         {
-            if (LISTBOX_화면캡쳐_리스트박스.SelectedItem != null)
+            if (RADIO_입실.IsChecked == true)
             {
-                string selectedItem = LISTBOX_화면캡쳐_리스트박스.SelectedItem.ToString();
-                time_selected = selectedItem;
+                time_selected = "입실";
+            }
+            else if (RADIO_중간.IsChecked == true)
+            {
+                time_selected = "중간";
+            }
+            else if (RADIO_퇴실.IsChecked == true)
+            {
+                time_selected = "퇴실";
+            }
+            else if (RADIO_실강.IsChecked == true)
+            {
+                time_selected = "실강";
+            }
+            else if (RADIO_플젝.IsChecked == true)
+            {
+                time_selected = "프로젝트";
+                TEXT_화면캡쳐_라디오기타.IsEnabled = false;
+            }
+            else if (RADIO_기타.IsChecked == true)
+            {
+                if (TEXT_화면캡쳐_라디오기타 != null)
+                {
+                    time_selected = radiotextbox; // 'RADIO_기타' 체크 시 radiotextbox의 값을 사용
+                    TEXT_화면캡쳐_라디오기타.IsEnabled = true; // 'RADIO_기타' 체크 시 텍스트 상자 활성화
+                }
+            }
+            else
+            {
+                if (TEXT_화면캡쳐_라디오기타 != null)
+                {
+                    TEXT_화면캡쳐_라디오기타.IsEnabled = false; // 다른 라디오 버튼 체크 시 텍스트 상자 비활성화
+                }
             }
         }
 
 
-        private void BUTTON_화면캡쳐_리스트추가_Click(object sender, RoutedEventArgs e)
-        {
-            LISTBOX_화면캡쳐_리스트박스.Items.Add(TEXT_화면캡쳐_리스트추가.Text);
-            TEXT_화면캡쳐_리스트추가.Text = "";
-        }
 
 
         private void BUTTON_화면캡쳐_폴더선택_Click(object sender, RoutedEventArgs e)
@@ -347,5 +376,3 @@ namespace LM_JARVIS
 
     }
 }
-    
-
