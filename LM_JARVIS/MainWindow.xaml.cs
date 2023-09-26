@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,21 +16,46 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization.Formatters;
+using System.Diagnostics.Eventing.Reader;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LM_JARVIS
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
+
+        private string currentDate;
+        private string time_selected;
+        private string ScreenShotFileName;
         private string settingsFilePath = "setting.ini";
+        private string savedFolderPath;
+        private bool subMonitorExists = false;
+
         public MainWindow()
         {
             InitializeComponent();
-        }
+            currentDate = DateTime.Now.ToString("yyMMdd");
+            TEXT_화면캡쳐_날짜.Text = currentDate;
+
+            // savedFolderPath를 설정 파일에서 읽어옵니다.
+            if (System.IO.File.Exists(settingsFilePath))
+            {
+                savedFolderPath = System.IO.File.ReadAllText(settingsFilePath);
+                TEXT_화면캡쳐_경로.Text = savedFolderPath;
+            }
+            else
+            {
+                // 설정 파일이 없는 경우, 기본 폴더 경로를 지정하고 파일을 생성
+                savedFolderPath = @"C:\DefaultFolderPath"; // 기본 폴더 경로 설정
+                System.IO.File.WriteAllText(settingsFilePath, savedFolderPath);
+                TEXT_화면캡쳐_경로.Text = savedFolderPath;
+            }
+        }   
         // MENU
         private void HyperlinkMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -77,26 +104,20 @@ namespace LM_JARVIS
 
 
         //화면 캡쳐
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void LISTBOX_화면캡쳐_리스트박스_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string currentDate = DateTime.Now.ToString("yyMMdd");
-
-            if (sender is System.Windows.Controls.TextBox textBox)
+            if (LISTBOX_화면캡쳐_리스트박스.SelectedItem != null)
             {
-                textBox.Text = currentDate;
+                string selectedItem = LISTBOX_화면캡쳐_리스트박스.SelectedItem.ToString();
+                time_selected = selectedItem;
             }
         }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-            // 현재 날짜를 YYMMDD 형식으로 가져옵니다.
-            string currentDate = DateTime.Now.ToString("yyMMdd");
 
-            // TextBox에 현재 날짜를 설정합니다.
-            if (sender is System.Windows.Controls.TextBox textBox)
-            {
-                textBox.Text = currentDate;
-            }
+        private void BUTTON_화면캡쳐_리스트추가_Click(object sender, RoutedEventArgs e)
+        {
+            LISTBOX_화면캡쳐_리스트박스.Items.Add(TEXT_화면캡쳐_리스트추가.Text);
+            TEXT_화면캡쳐_리스트추가.Text = "";
         }
 
 
@@ -110,6 +131,9 @@ namespace LM_JARVIS
 
                 // 선택한 폴더 경로를 설정 파일에 저장
                 SaveFolderPathToSettings(selectedFolderPath);
+
+                // savedFolderPath를 업데이트합니다.
+                savedFolderPath = selectedFolderPath;
             }
         }
 
@@ -126,6 +150,8 @@ namespace LM_JARVIS
             }
         }
 
+
+
         private string ShowFolderDialog()
         {
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
@@ -140,13 +166,11 @@ namespace LM_JARVIS
 
             return null;
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (System.IO.File.Exists(settingsFilePath))
             {
-                // 설정 파일이 이미 존재하는 경우, 파일에서 폴더 경로를 읽어와서 TextBox에 표시
-                string savedFolderPath = System.IO.File.ReadAllText(settingsFilePath);
+                savedFolderPath = System.IO.File.ReadLines(settingsFilePath).FirstOrDefault();
                 TEXT_화면캡쳐_경로.Text = savedFolderPath;
             }
             else
@@ -158,41 +182,110 @@ namespace LM_JARVIS
             }
         }
 
-        private string selectedOption = "입실"; // 기본값: 입실
-        private void LADIO_화면캡쳐_입실_Checked(object sender, RoutedEventArgs e)
-        {
 
+        private string GenerateUniqueFileName(string folderPath, string fileNameWithoutExtension, string fileformat)
+        {
+            string uniqueFileName = $"{fileNameWithoutExtension} {fileformat}";
+            int counter = 1;
+
+            while (true)
+            {
+                string filePath = System.IO.Path.Combine(folderPath, uniqueFileName);
+                if (!File.Exists(filePath))
+                {
+                    return uniqueFileName;
+                }
+
+                uniqueFileName = $"{fileNameWithoutExtension} ({counter}) {fileformat}";
+                counter++;
+            }
         }
 
-        private void LADIO_화면캡쳐_중간_Checked(object sender, RoutedEventArgs e)
-        {
 
+        private void BUTTON_화면캡쳐_캡쳐_Click(object sender, RoutedEventArgs e)
+        {
+            // 콤보박스에서 선택된 항목을 확인하여 캡처 대상 모니터를 결정
+            Screen targetScreen = null;
+
+            // 모든 모니터에 대한 정보 가져오기
+            Screen[] screens = Screen.AllScreens;
+
+            if (subMonitorExists && COMOBO_화면캡쳐_모니터.SelectedItem != null && COMOBO_화면캡쳐_모니터.SelectedItem.ToString() == "Sub")
+            {
+                // "Sub" 모니터를 캡처
+                targetScreen = screens.FirstOrDefault(s => s.Primary == false);
+            }
+            else
+            {
+                // "Main" 모니터 또는 서브 모니터가 없을 때 "Main" 모니터를 캡처
+                targetScreen = screens.FirstOrDefault(s => s.Primary == true);
+            }
+
+            if (targetScreen != null)
+            {
+                // currentDate를 이름으로 하는 디렉토리 경로 생성
+                string currentDateDirectory = System.IO.Path.Combine(savedFolderPath, currentDate);
+
+                try
+                {
+                    // currentDate 폴더가 없는 경우 폴더를 생성합니다.
+                    if (!System.IO.Directory.Exists(currentDateDirectory))
+                    {
+                        System.IO.Directory.CreateDirectory(currentDateDirectory);
+                    }
+
+                    // 캡처할 모니터를 지정하고 스크린샷 캡처
+                    using (Bitmap bmp = new Bitmap(targetScreen.Bounds.Width, targetScreen.Bounds.Height))
+                    {
+                        using (Graphics g = Graphics.FromImage(bmp))
+                        {
+                            g.CopyFromScreen(targetScreen.Bounds.Location, new System.Drawing.Point(0, 0), targetScreen.Bounds.Size);
+                        }
+
+                        // 파일 이름 생성 및 중복 검사
+                        ScreenShotFileName = $"{currentDate} {time_selected}";
+                        string filenameformat = ".png";
+                        ScreenShotFileName = GenerateUniqueFileName(currentDateDirectory, ScreenShotFileName, filenameformat);
+
+                        // 캡처된 이미지를 파일로 저장
+                        string screenshotPath = System.IO.Path.Combine(currentDateDirectory, ScreenShotFileName);
+                        bmp.Save(screenshotPath, System.Drawing.Imaging.ImageFormat.Png);
+
+                        // 캡처 완료 메시지 표시
+                        System.Windows.MessageBox.Show($"스크린샷이 저장되었습니다: {screenshotPath}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 폴더 생성 또는 이미지 저장 중에 오류가 발생한 경우
+                    System.Windows.MessageBox.Show($"스크린샷을 저장하는 동안 오류가 발생했습니다: {ex.Message}");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("캡처할 모니터를 찾을 수 없습니다.");
+            }
         }
 
-        private void LADIO_화면캡쳐_퇴실_Checked(object sender, RoutedEventArgs e)
-        {
 
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 콤보박스 선택 변경 이벤트 핸들러
+            // 서브 모니터 존재 여부를 확인하고 "Sub" 옵션 활성화/비활성화
+            Screen[] screens = Screen.AllScreens;
+            subMonitorExists = screens.Length > 1;
+
+            // 서브 모니터가 없을 경우 "Sub" 옵션 비활성화
+            if (!subMonitorExists && COMOBO_화면캡쳐_모니터.SelectedItem != null && COMOBO_화면캡쳐_모니터.SelectedItem.ToString() == "Sub")
+            {
+                COMOBO_화면캡쳐_모니터.SelectedItem = "Main"; // "Main"으로 선택 변경
+            }
+
+            // "Sub" 옵션 활성화/비활성화
+            COMOBO_화면캡쳐_모니터.IsEnabled = subMonitorExists;
         }
 
-        private void LADIO_화면캡쳐_실강_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LADIO_화면캡쳐_프로젝트_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LADIO_화면캡쳐_기타_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TEXT_화면캡쳐_기타_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
 
         // 제출인원 관리
@@ -211,10 +304,7 @@ namespace LM_JARVIS
 
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
 
         private void TEXT_제출인원관리_전체인원_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -243,6 +333,17 @@ namespace LM_JARVIS
         {
 
         }
+
+        private void LISTBOX_화면캡쳐_실강_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
 
     }
 }

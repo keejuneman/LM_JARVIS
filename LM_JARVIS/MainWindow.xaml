@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LM_JARVIS"
         mc:Ignorable="d"
-        Title="LM JARVIS" Height="442" Width="800">
+        Title="LM JARVIS" Height="442" Width="800"
+        WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize"
+        Icon="C:\Users\rlwns\source\repos\LM_JARVIS/FC_icon.png">
     <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="12*"/>
@@ -16,11 +18,11 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.ColumnSpan="5">
             <MenuItem Header="정보" Click="MenuItem_Click_1">
-                <MenuItem Header="메뉴얼" Tag="http://example.com/manual" Click="HyperlinkMenuItem_Click" />
-                <MenuItem Header="Github" Tag="https://github.com/yourrepository" Click="HyperlinkMenuItem_Click" />
+                <MenuItem Header="메뉴얼" Tag="https://equable-gold-734.notion.site/LM-Managing-Program-Manual-0ca45d68b2884614b312d28aad5a3d00?pvs=4" Click="HyperlinkMenuItem_Click" />
+                <MenuItem Header="Github" Tag="https://github.com/keejuneman/LM_JARVIS" Click="HyperlinkMenuItem_Click" />
                 <Separator />
-                <MenuItem Header="버그제보" Tag="http://example.com/bugreport" Click="HyperlinkMenuItem_Click" />
-                <MenuItem Header="건의사항" Tag="http://example.com/suggestions" Click="HyperlinkMenuItem_Click" />
+                <MenuItem Header="버그제보" Tag="https://forms.gle/m134dzwVBEvQ2FBw6" Click="HyperlinkMenuItem_Click" />
+                <MenuItem Header="건의사항" Tag="https://forms.gle/QY6owJVfHTAgTRrn6" Click="HyperlinkMenuItem_Click" />
                 <Separator />
                 <MenuItem Header="종료" Click="ExitMenuItem_Click" />
             </MenuItem>
@@ -64,25 +66,34 @@
                         <ColumnDefinition Width="73*"/>
                         <ColumnDefinition Width="253*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="LABEL_화면캡쳐_날짜" Content="날짜" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Height="41" Width="57" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
-                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Height="41" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>
+
+                    <Label x:Name="LABEL_화면캡쳐_날짜" Content="날짜" HorizontalAlignment="Left" Margin="1,24,0,0" VerticalAlignment="Top" Height="41" Width="57" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="3"/>
+                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="4,36,0,0" VerticalAlignment="Top" Height="42" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>
                     <Button x:Name="BUTTON_화면캡쳐_폴더선택" Grid.Column="5" Content="폴더 선택" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,114,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더선택_Click"/>
                     <Button x:Name="BUTTON_화면캡쳐_폴더열기" Grid.Column="5" Content="폴더 열기" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,162,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더열기_Click"/>
-                    <Grid Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="187" Margin="10,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="181">
-                        <RadioButton x:Name="LADIO_화면캡쳐_입실" Content="입실" HorizontalAlignment="Left" Height="14" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_입실_Checked"/>
-                        <RadioButton x:Name="LADIO_화면캡쳐_중간" Content="중간" HorizontalAlignment="Left" Height="14" Margin="0,32,0,0" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_중간_Checked"/>
-                        <RadioButton x:Name="LADIO_화면캡쳐_퇴실" Content="퇴실" HorizontalAlignment="Left" Height="14" Margin="0,66,0,0" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_퇴실_Checked"/>
-                        <RadioButton x:Name="LADIO_화면캡쳐_실강" Content="실강" HorizontalAlignment="Left" Height="14" Margin="0,101,0,0" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_실강_Checked"/>
-                        <RadioButton x:Name="LADIO_화면캡쳐_프로젝트" Content="프로젝트" HorizontalAlignment="Left" Height="14" Margin="0,133,0,0" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_프로젝트_Checked"/>
-                        <RadioButton x:Name="LADIO_화면캡쳐_기타" Content="기타" HorizontalAlignment="Left" Height="14" Margin="0,167,0,0" VerticalAlignment="Top" Width="104" Checked="LADIO_화면캡쳐_기타_Checked"/>
-                        <TextBox x:Name="TEXT_화면캡쳐_기타" HorizontalAlignment="Left" Height="24" Margin="53,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" TextChanged="TEXT_화면캡쳐_기타_TextChanged"/>
-                    </Grid>
-                    <ComboBox x:Name="COMOBO_화면캡쳐_모니터" Grid.Column="5" HorizontalAlignment="Left" Height="29" Margin="154,262,0,0" Grid.Row="1" VerticalAlignment="Top" Width="199" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="4"/>
+                    <ComboBox x:Name="COMOBO_화면캡쳐_모니터" Grid.Column="5" HorizontalAlignment="Left" Height="29" Margin="154,262,0,0" Grid.Row="1" VerticalAlignment="Top" Width="199" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="4">
+                        <ComboBoxItem Content="Main" IsSelected="True"/>
+                        <ComboBoxItem Content="Sub" IsEnabled="False"/>
+                    </ComboBox>
                     <Label x:Name="LABEL_화면캡쳐_모니터선택" Content="모니터 선택 " HorizontalAlignment="Left" Margin="154,218,0,0" VerticalAlignment="Top" Height="41" Width="117" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="5"/>
-                    <Button x:Name="BUTTON_화면캡쳐_캡쳐" Grid.Column="9" Content="스크린샷&#xA;Ctrl+Shift+D" HorizontalAlignment="Left" Height="110" Margin="57,182,0,0" VerticalAlignment="Top" Width="241" Grid.Row="1" Grid.ColumnSpan="2" Cursor="Hand"/>
+                    <Button x:Name="BUTTON_화면캡쳐_캡쳐" Grid.Column="9" Content="스크린샷" HorizontalAlignment="Left" Height="110" Margin="57,182,0,0" VerticalAlignment="Top" Width="241" Grid.Row="1" Grid.ColumnSpan="2" Cursor="Hand" Click="BUTTON_화면캡쳐_캡쳐_Click">
+                        <Button.InputBindings>
+                            <KeyBinding Key="D" Modifiers="Shift" Command="{Binding BUTTON_화면캡쳐_캡쳐_Click}" />
+                        </Button.InputBindings>
+                    </Button>
                     <Label x:Name="LABEL_화면캡쳐_경로지정" Content="경로 지정" HorizontalAlignment="Left" Margin="154,61,0,0" VerticalAlignment="Top" Height="41" Width="97" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="5"/>
-                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="1,33,0,0" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" TextChanged="TextBox_TextChanged_1"/>
+                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="5" HorizontalAlignment="Left" Height="20" Margin="4,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" IsReadOnly="True" Grid.Row="1"/>
                     <TextBox x:Name="TEXT_화면캡쳐_경로" Grid.Column="6" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="27" Margin="9,119,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="411" TextChanged="TextBox_TextChanged_2" IsReadOnly="True"/>
+                    <ListBox x:Name="LISTBOX_화면캡쳐_리스트박스" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="167" Margin="10,70,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" SelectionChanged="LISTBOX_화면캡쳐_리스트박스_SelectionChanged">
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_입실" Content="입실" IsSelected="True" />
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_중간" Content="중간"/>
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_퇴실" Content="퇴실"/>
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_실강" Content="실강"/>
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_프로젝트" Content="프로젝트"/>
+                        <ListBoxItem x:Name="LISTBOX_화면캡쳐_멘토링" Content="멘토링"/>
+                    </ListBox>
+                    <TextBox x:Name="TEXT_화면캡쳐_리스트추가" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,243,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="132" Height="24"/>
+                    <Button x:Name="BUTTON_화면캡쳐_리스트추가" Grid.Column="3" Content="리스트에 추가" HorizontalAlignment="Left" Margin="10,272,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="132" Click="BUTTON_화면캡쳐_리스트추가_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_제출인원관리" Header="제출인원관리">
@@ -93,25 +104,31 @@
                         <ColumnDefinition Width="598*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TEXT_제출인원관리_전체인원" HorizontalAlignment="Left" Height="263" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" TextChanged="TEXT_제출인원관리_전체인원_TextChanged"/>
-                    <TextBox x:Name="TEXT_제출인원관리_참여인원" HorizontalAlignment="Left" Height="263" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="122,41,0,0" Grid.Column="2"/>
-                    <TextBox x:Name="TEXT_제출인원관리_결과" HorizontalAlignment="Left" Height="302" Margin="386,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="2"/>
+                    <TextBox x:Name="TEXT_제출인원관리_참여인원" HorizontalAlignment="Left" Height="263" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="127,41,0,0" Grid.Column="2"/>
+                    <TextBox x:Name="TEXT_제출인원관리_결과" HorizontalAlignment="Left" Height="302" Margin="388,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="2"/>
                     <Label x:Name="LABEL_제출인원관리_전체인원" Content="전체 인원" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="LABEL_제출인원관리_결과" Content="결과" HorizontalAlignment="Left" Margin="386,15,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-                    <Label x:Name="LABEL_제출인원관리_참여인원" Content="참여 인원" HorizontalAlignment="Left" Margin="122,15,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <Label x:Name="LABEL_제출인원관리_결과" Content="결과" HorizontalAlignment="Left" Margin="388,15,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <Label x:Name="LABEL_제출인원관리_참여인원" Content="참여 인원" HorizontalAlignment="Left" Margin="127,15,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <Button x:Name="BUTTON_제출인원관리_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="50,312,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3"/>
-                    <Button x:Name="BUTTON_제출인원관리_참여인원확인" Content="참여 인원 확인" HorizontalAlignment="Left" Height="31" Margin="122,312,0,0" VerticalAlignment="Top" Width="178" Grid.Column="2" Click="BUTTON_제출인원관리_참여인원확인_Click"/>
+                    <Button x:Name="BUTTON_제출인원관리_참여인원확인" Content="참여 인원 확인" HorizontalAlignment="Left" Height="31" Margin="127,312,0,0" VerticalAlignment="Top" Width="178" Grid.Column="2" Click="BUTTON_제출인원관리_참여인원확인_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_카운팅" Header="카운트" Margin="-2,-2,-2,0">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="TEXT_제출인원관리_전체인원_Copy" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-                    <TextBox x:Name="TEXT_제출인원관리_참여인원_Copy" HorizontalAlignment="Center" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="0,41,0,0"/>
-                    <TextBox x:Name="TEXT_제출인원관리_결과_Copy" HorizontalAlignment="Left" Height="303" Margin="562,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-                    <Label x:Name="LABEL_제출인원관리_전체인원_Copy" Content="카테고리" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="LABEL_제출인원관리_결과_Copy" Content="결과" HorizontalAlignment="Left" Margin="562,15,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="LABEL_제출인원관리_참여인원_Copy" Content="항목" HorizontalAlignment="Left" Margin="298,15,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="BUTTON_제출인원관리_인원저장_Copy" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178"/>
-                    <Button x:Name="BUTTON_제출인원관리_참여인원확인_Copy" Content="카운팅" HorizontalAlignment="Center" Height="31" Margin="0,313,0,0" VerticalAlignment="Top" Width="178"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="79*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="81*"/>
+                        <ColumnDefinition Width="620*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TEXT_제출인원관리_전체인원_Copy" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="4"/>
+                    <TextBox x:Name="TEXT_제출인원관리_참여인원_Copy" HorizontalAlignment="Left" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="134,41,0,0" Grid.Column="3"/>
+                    <TextBox x:Name="TEXT_제출인원관리_결과_Copy" HorizontalAlignment="Left" Height="303" Margin="395,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="3"/>
+                    <Label x:Name="LABEL_제출인원관리_전체인원_Copy" Content="카테고리" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <Label x:Name="LABEL_제출인원관리_결과_Copy" Content="결과" HorizontalAlignment="Left" Margin="395,15,0,0" VerticalAlignment="Top" Grid.Column="3" RenderTransformOrigin="0.176,0.579"/>
+                    <Label x:Name="LABEL_제출인원관리_참여인원_Copy" Content="항목" HorizontalAlignment="Left" Margin="134,15,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Button x:Name="BUTTON_제출인원관리_인원저장_Copy" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="4"/>
+                    <Button x:Name="BUTTON_제출인원관리_참여인원확인_Copy" Content="카운팅" HorizontalAlignment="Left" Height="31" Margin="134,313,0,0" VerticalAlignment="Top" Width="178" Grid.Column="3"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_랜덤조편성" Header="랜덤조편성" Margin="-2,-2,-2,0">
