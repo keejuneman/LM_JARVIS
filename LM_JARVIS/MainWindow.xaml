@@ -47,43 +47,44 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="12*"/>
                         <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="54*"/>
+                        <ColumnDefinition Width="56*"/>
                         <ColumnDefinition Width="6*"/>
-                        <ColumnDefinition Width="237*"/>
-                        <ColumnDefinition Width="40*"/>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="66*"/>
-                        <ColumnDefinition Width="73*"/>
-                        <ColumnDefinition Width="253*"/>
+                        <ColumnDefinition Width="18*"/>
+                        <ColumnDefinition Width="226*"/>
+                        <ColumnDefinition Width="41*"/>
+                        <ColumnDefinition Width="26*"/>
+                        <ColumnDefinition Width="68*"/>
+                        <ColumnDefinition Width="75*"/>
+                        <ColumnDefinition Width="261*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="LABEL_화면캡쳐_날짜" Content="날짜" HorizontalAlignment="Left" Margin="1,24,0,0" VerticalAlignment="Top" Height="41" Width="57" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="3"/>
-                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="4,36,0,0" VerticalAlignment="Top" Height="42" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"/>
-                    <Button x:Name="BUTTON_화면캡쳐_폴더선택" Grid.Column="5" Content="폴더 선택" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,114,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더선택_Click"/>
-                    <Button x:Name="BUTTON_화면캡쳐_폴더열기" Grid.Column="5" Content="폴더 열기" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="154,162,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더열기_Click"/>
-                    <ComboBox x:Name="COMOBO_화면캡쳐_모니터" Grid.Column="5" HorizontalAlignment="Left" Height="29" Margin="154,262,0,0" Grid.Row="1" VerticalAlignment="Top" Width="199" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="4">
+                    <Label x:Name="LABEL_화면캡쳐_시간선택" Content="시간 선택 " HorizontalAlignment="Left" Margin="4,36,0,0" VerticalAlignment="Top" Height="42" Width="98" FontWeight="Bold" FontSize="20" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4"/>
+                    <Button x:Name="BUTTON_화면캡쳐_폴더선택" Grid.Column="6" Content="폴더 선택" HorizontalAlignment="Left" Height="32" Margin="136,114,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더선택_Click"/>
+                    <Button x:Name="BUTTON_화면캡쳐_폴더열기" Grid.Column="6" Content="폴더 열기" HorizontalAlignment="Left" Height="32" Margin="136,162,0,0" VerticalAlignment="Top" Width="78" Grid.Row="1" Click="BUTTON_화면캡쳐_폴더열기_Click"/>
+                    <ComboBox x:Name="COMOBO_화면캡쳐_모니터" Grid.Column="6" HorizontalAlignment="Left" Height="29" Margin="136,262,0,0" Grid.Row="1" VerticalAlignment="Top" Width="199" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="4">
                         <ComboBoxItem Content="Main" IsSelected="True"/>
                         <ComboBoxItem Content="Sub" IsEnabled="False"/>
                     </ComboBox>
-                    <Label x:Name="LABEL_화면캡쳐_모니터선택" Content="모니터 선택 " HorizontalAlignment="Left" Margin="154,218,0,0" VerticalAlignment="Top" Height="41" Width="117" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="5"/>
-                    <Button x:Name="BUTTON_화면캡쳐_캡쳐" Grid.Column="9" Content="스크린샷" HorizontalAlignment="Left" Height="110" Margin="57,182,0,0" VerticalAlignment="Top" Width="241" Grid.Row="1" Grid.ColumnSpan="2" Cursor="Hand" Click="BUTTON_화면캡쳐_캡쳐_Click">
+                    <Label x:Name="LABEL_화면캡쳐_모니터선택" Content="모니터 선택 " HorizontalAlignment="Left" Margin="136,218,0,0" VerticalAlignment="Top" Height="41" Width="117" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="6"/>
+                    <Button x:Name="BUTTON_화면캡쳐_캡쳐" Grid.Column="10" Content="스크린샷" HorizontalAlignment="Left" Height="110" Margin="57,182,0,0" VerticalAlignment="Top" Width="241" Grid.Row="1" Grid.ColumnSpan="2" Cursor="Hand" Click="BUTTON_화면캡쳐_캡쳐_Click">
                         <Button.InputBindings>
                             <KeyBinding Key="D" Modifiers="Shift" Command="{Binding BUTTON_화면캡쳐_캡쳐_Click}" />
                         </Button.InputBindings>
                     </Button>
-                    <Label x:Name="LABEL_화면캡쳐_경로지정" Content="경로 지정" HorizontalAlignment="Left" Margin="154,61,0,0" VerticalAlignment="Top" Height="41" Width="97" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="5"/>
-                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="5" HorizontalAlignment="Left" Height="20" Margin="4,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" IsReadOnly="True" Grid.Row="1"/>
-                    <TextBox x:Name="TEXT_화면캡쳐_경로" Grid.Column="6" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="27" Margin="9,119,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="411" TextChanged="TextBox_TextChanged_2" IsReadOnly="True"/>
-                    <RadioButton x:Name="RADIO_입실" Grid.Column="3" Content="입실" HorizontalAlignment="Left" Margin="25,90,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot"  IsChecked="True" Checked="Radio_control"/>
-                    <RadioButton x:Name="RADIO_중간" Grid.Column="3" Content="중간" HorizontalAlignment="Left" Margin="25,118,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
-                    <RadioButton x:Name="RADIO_퇴실" Grid.Column="3" Content="퇴실" HorizontalAlignment="Left" Margin="25,147,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
-                    <RadioButton x:Name="RADIO_실강" Grid.Column="3" Content="실강" HorizontalAlignment="Left" Margin="25,176,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
-                    <RadioButton x:Name="RADIO_플젝" Grid.Column="3" Content="프로젝트" HorizontalAlignment="Left" Margin="25,204,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
-                    <RadioButton x:Name="RADIO_기타" Grid.Column="3" Content="기타" HorizontalAlignment="Left" Margin="25,233,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control" IsEnabled="False"/>
-                    <TextBox x:Name="TEXT_화면캡쳐_라디오기타" Grid.Column="5" HorizontalAlignment="Left" Margin="12,231,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="79" IsEnabled="False"/>
+                    <Label x:Name="LABEL_화면캡쳐_경로지정" Content="경로 지정" HorizontalAlignment="Left" Margin="136,61,0,0" VerticalAlignment="Top" Height="41" Width="97" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="6"/>
+                    <TextBox x:Name="TEXT_화면캡쳐_날짜" Grid.Column="5" HorizontalAlignment="Left" Height="20" Margin="4,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" IsReadOnly="True" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TEXT_화면캡쳐_경로" Grid.Column="7" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="27" Margin="9,119,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="411" TextChanged="TextBox_TextChanged_2" IsReadOnly="True"/>
+                    <RadioButton x:Name="RADIO_입실" Grid.Column="3" Content="입실" HorizontalAlignment="Left" Margin="28,90,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot"  IsChecked="True" Checked="Radio_control"/>
+                    <RadioButton x:Name="RADIO_중간" Grid.Column="3" Content="중간" HorizontalAlignment="Left" Margin="28,118,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
+                    <RadioButton x:Name="RADIO_퇴실" Grid.Column="3" Content="퇴실" HorizontalAlignment="Left" Margin="28,147,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
+                    <RadioButton x:Name="RADIO_실강" Grid.Column="3" Content="실강" HorizontalAlignment="Left" Margin="28,176,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control"/>
+                    <RadioButton x:Name="RADIO_기타" Grid.Column="3" Content="기타" HorizontalAlignment="Left" Margin="28,230,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" GroupName="ScreenShot" Checked="Radio_control" IsEnabled="False"/>
+                    <TextBox x:Name="TEXT_화면캡쳐_라디오기타" Grid.Column="5" HorizontalAlignment="Left" Margin="15,228,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="79" IsEnabled="False" Grid.ColumnSpan="2"/>
+                    <RadioButton x:Name="RADIO_플젝" Grid.Column="3" Content="프로젝트" HorizontalAlignment="Left" Margin="28,202,0,0" Grid.Row="1" VerticalAlignment="Top" GroupName="ScreenShot" Checked="Radio_control" Width="68" Grid.ColumnSpan="4"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TAB_제출인원관리" Header="제출인원관리">
+            <TabItem x:Name="TAB_제출인원관리" Header="제출인원관리" Margin="-2,-3,-2,1">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15*"/>
@@ -112,13 +113,13 @@
                         <ColumnDefinition Width="620*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TEXT_카운트_카테고리" HorizontalAlignment="Left" Height="264" Margin="50,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="5" AcceptsReturn="True"/>
-                    <TextBox x:Name="TTEXT_카운트_항목" HorizontalAlignment="Left" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="133,41,0,0" Grid.Column="4" AcceptsReturn="True"/>
+                    <TextBox x:Name="TEXT_카운트_항목" HorizontalAlignment="Left" Height="264" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" TextChanged="TEXT_제출인원관리_참여인원_TextChanged" Margin="133,41,0,0" Grid.Column="4" AcceptsReturn="True"/>
                     <TextBox x:Name="TEXT_카운트_결과" HorizontalAlignment="Left" Height="303" Margin="394,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Grid.Column="4" AcceptsReturn="True"/>
                     <Label x:Name="LABEL_카운트_전체인원" Content="카테고리" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
                     <Label x:Name="LABEL_카운트_결과" Content="결과" HorizontalAlignment="Left" Margin="394,15,0,0" VerticalAlignment="Top" Grid.Column="4" RenderTransformOrigin="0.176,0.579"/>
                     <Label x:Name="LABEL_카운트_참여인원" Content="항목" HorizontalAlignment="Left" Margin="133,15,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-                    <Button x:Name="BUTTON_카운트_카테고리저장" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="5"/>
-                    <Button x:Name="BUTTON_카운트_카운팅" Content="카운팅" HorizontalAlignment="Left" Height="31" Margin="134,313,0,0" VerticalAlignment="Top" Width="178" Grid.Column="4"/>
+                    <Button x:Name="BUTTON_카운트_카테고리저장" Content="카테고리 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="5" Click="BUTTON_카운트_카테고리저장_Click"/>
+                    <Button x:Name="BUTTON_카운트_카운팅" Content="카운팅" HorizontalAlignment="Left" Height="31" Margin="134,313,0,0" VerticalAlignment="Top" Width="178" Grid.Column="4" Click="BUTTON_카운트_카운팅_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TAB_랜덤조편성" Header="랜덤조편성" Margin="-2,-2,-2,0">
@@ -134,13 +135,16 @@
                     <Label x:Name="LABEL_랜덤조편성_전체인원" Content="전체 인원" HorizontalAlignment="Left" Margin="50,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label x:Name="LABEL_랜덤조편성_결과" Content="결과" HorizontalAlignment="Left" Margin="106,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
                     <Label x:Name="LABEL_랜덤조편성_편성기준" Content="편성기준" HorizontalAlignment="Left" Margin="84,28,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Button x:Name="BUTTON_랜덤조편성_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3"/>
-                    <Button x:Name="BUTTON_랜덤조편성_조편성" Content="조 편성" HorizontalAlignment="Left" Height="54" Margin="235,78,0,0" VerticalAlignment="Top" Width="87" Grid.Column="3"/>
-                    <RadioButton  x:Name="RADIO_랜덤조편성_팀당인원" Content="팀 당 인원" HorizontalAlignment="Left" Margin="94,76,0,0" VerticalAlignment="Top" Grid.Column="3" GroupName="편성기준"/>
+                    <Button x:Name="BUTTON_랜덤조편성_인원저장" Content="인원 저장" HorizontalAlignment="Left" Height="31" Margin="50,313,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" Click="BUTTON_랜덤조편성_인원저장_Click"/>
+                    <Button x:Name="BUTTON_랜덤조편성_조편성" Content="조 편성" HorizontalAlignment="Left" Height="54" Margin="235,78,0,0" VerticalAlignment="Top" Width="87" Grid.Column="3" Click="BUTTON_랜덤조편성_조편성_Click"/>
+                    <RadioButton  x:Name="RADIO_랜덤조편성_팀당인원" Content="팀 당 인원" HorizontalAlignment="Left" Margin="94,76,0,0" VerticalAlignment="Top" Grid.Column="3" GroupName="편성기준" IsChecked="True"/>
                     <RadioButton  x:Name="RADIO_랜덤조편성_팀갯수" Content="팀 갯수" HorizontalAlignment="Left" Margin="94,110,0,0" VerticalAlignment="Top" Grid.Column="3" GroupName="편성기준"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="69,138,0,0" VerticalAlignment="Top" Width="126" Height="29" Grid.Column="3"/>
+                    <TextBlock x:Name="counterTextBlock" Grid.Column="3" HorizontalAlignment="Left" Margin="113,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="71"><Run Language="ko-kr" Text="1"/></TextBlock>
+                    <Button Grid.Column="3" Content="▲" HorizontalAlignment="Left" Margin="135,145,0,0" VerticalAlignment="Top" Click="UpButton_Click" Width="56" />
+                    <Button Grid.Column="3" Content="▼" HorizontalAlignment="Left" Margin="135,170,0,0" VerticalAlignment="Top" Click="DownButton_Click" Width="56"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <StackPanel/>
     </Grid>
 </Window>

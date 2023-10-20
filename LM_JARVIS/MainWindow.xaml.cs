@@ -41,6 +41,11 @@ namespace LM_JARVIS
 
         //제출인원관리
         private string membersFilePath = "member.ini";
+        private string categoriFilePath = "categori.ini";
+
+        //랜덤조편성
+        private int counter = 0;
+
 
         public MainWindow()
         {
@@ -73,10 +78,28 @@ namespace LM_JARVIS
                     // 파일이 존재하면 파일에서 데이터를 읽어와서 텍스트 박스에 설정
                     string membersText = File.ReadAllText(membersFilePath);
                     TEXT_제출인원관리_전체인원.Text = membersText;
+                    TEXT_랜덤조편성_전체인원.Text = membersText;
                 }
                 else
                 {
                     System.IO.File.WriteAllText("member.ini", "");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"파일 불러오기 중 오류 발생: {ex.Message}");
+            }
+            try
+            {
+                if (File.Exists(categoriFilePath))
+                {
+                    // 파일이 존재하면 파일에서 데이터를 읽어와서 텍스트 박스에 설정
+                    string membersText = File.ReadAllText(categoriFilePath);
+                    TEXT_카운트_카테고리.Text = membersText;
+                }
+                else
+                {
+                    System.IO.File.WriteAllText("categoriFilePath.ini", "");
                 }
             }
             catch (Exception ex)
@@ -361,6 +384,186 @@ namespace LM_JARVIS
                 System.Windows.MessageBox.Show($"파일 쓰기 중 오류 발생: {ex.Message}");
             }
         }
+        private void BUTTON_제출인원관리_참여인원확인_Click(object sender, RoutedEventArgs e)
+        {
+            // "TEXT_제출인원관리_전체인원" 텍스트를 가져와서 개별 인원을 추출합니다.
+            string allMembersText = TEXT_제출인원관리_전체인원.Text;
+            string[] allMembers = allMembersText.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // "TEXT_제출인원관리_참여인원" 텍스트를 가져와서 개별 인원을 추출합니다.
+            string participatingMembersText = TEXT_제출인원관리_참여인원.Text;
+            string[] participatingMembers = participatingMembersText.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // "TEXT_제출인원관리_결과" 텍스트 박스를 초기화합니다.
+            TEXT_제출인원관리_결과.Text = "";
+
+            // "TEXT_제출인원관리_참여인원"에 없는 인원을 찾아서 "TEXT_제출인원관리_결과"에 추가합니다.
+            foreach (string member in allMembers)
+            {
+                if (!participatingMembers.Contains(member))
+                {
+                    TEXT_제출인원관리_결과.Text += "@" + member + " ";
+                }
+            }
+
+            // 클립보드에 "TEXT_제출인원관리_결과"의 내용을 복사합니다.
+            System.Windows.Clipboard.SetText(TEXT_제출인원관리_결과.Text);
+            System.Windows.MessageBox.Show("결과가 복사 되었습니다.");
+        }
+
+
+
+
+        private void BUTTON_카운트_카테고리저장_Click(object sender, RoutedEventArgs e)
+        {
+            string contentToWrite2 = TEXT_카운트_카테고리.Text; // 텍스트 박스의 내용 가져오기
+
+            try
+            {
+                File.WriteAllText(categoriFilePath, contentToWrite2);
+                System.Windows.MessageBox.Show("인원 정보가 저장되었습니다.");
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"파일 쓰기 중 오류 발생: {ex.Message}");
+            }
+        }
+
+        private void BUTTON_카운트_카운팅_Click(object sender, RoutedEventArgs e)
+        {
+            string itemsText = TEXT_카운트_항목.Text;
+            string categoryText = TEXT_카운트_카테고리.Text;
+            Dictionary<string, int> categoryCounts = new Dictionary<string, int>();
+
+            // "TEXT_카운트_항목" 텍스트를 쉼표 및 줄바꿈으로 나누어 항목 목록을 생성
+            string[] items = itemsText.Split(new char[] { ',', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(item => item.Trim())
+                                      .ToArray();
+
+            // "TEXT_카운트_카테고리" 텍스트를 줄바꿈 문자로 나누어 카테고리 목록을 생성
+            string[] categories = categoryText.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                                              .Select(category => category.Trim())
+                                              .ToArray();
+
+            // 각 칸의 초기값은 0으로 설정.
+            foreach (string category in categories)
+            {
+                categoryCounts[category] = 0;
+            }
+
+            // "기타" 분류도 초기화.
+            categoryCounts["기타"] = 0;
+
+            foreach (string item in items)
+            {
+                bool matched = false;
+
+                foreach (string category in categories)
+                {
+                    if (item.Equals(category))
+                    {
+                        categoryCounts[category]++;
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (!matched)
+                {
+                    // 일치하는 항목이 없으면 "기타"에 추가.
+                    categoryCounts["기타"]++;
+                }
+            }
+
+            StringBuilder resultBuilder = new StringBuilder();
+            foreach (var pair in categoryCounts)
+            {
+                resultBuilder.AppendLine($"{pair.Key} : {pair.Value}");
+            }
+
+            TEXT_카운트_결과.Text = resultBuilder.ToString();
+        }
+
+        private void BUTTON_랜덤조편성_인원저장_Click(object sender, RoutedEventArgs e)
+        {
+            string contentToWrite = TEXT_랜덤조편성_전체인원.Text; // 텍스트 박스의 내용 가져오기
+
+            try
+            {
+                File.WriteAllText(membersFilePath, contentToWrite);
+                System.Windows.MessageBox.Show("인원 정보가 저장되었습니다.");
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"파일 쓰기 중 오류 발생: {ex.Message}");
+            }
+
+        }
+
+
+
+
+        private void UpButton_Click(object sender, RoutedEventArgs e)
+        {
+            counter++;
+            counterTextBlock.Text = counter.ToString();
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter--;
+                counterTextBlock.Text = counter.ToString();
+            }
+        }
+
+
+        private void BUTTON_랜덤조편성_조편성_Click(object sender, RoutedEventArgs e)
+        {
+            string[] members = TEXT_랜덤조편성_전체인원.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            members = members.Select(member => member.Trim()).Where(member => !string.IsNullOrEmpty(member)).ToArray();
+
+            int selectedValue = int.Parse(counterTextBlock.Text);
+
+            Random rng = new Random();
+            List<List<string>> teams = new List<List<string>>();
+
+            if (RADIO_랜덤조편성_팀갯수.IsChecked == true)
+            {
+                members = members.OrderBy(x => rng.Next()).ToArray();
+
+                // 선택된 값만큼의 팀 리스트 생성
+                for (int i = 0; i < selectedValue; i++)
+                    teams.Add(new List<string>());
+
+                // 멤버들을 순서대로 각 팀에 배분
+                for (int i = 0; i < members.Length; i++)
+                    teams[i % selectedValue].Add(members[i]);
+
+            }
+            else
+            {
+                members = members.OrderBy(x => rng.Next()).ToArray();
+
+                for (int i = 0; i < members.Length; i++)
+                {
+                    if (i % selectedValue == 0)
+                        teams.Add(new List<string>());
+
+                    teams.Last().Add(members[i]);
+                }
+            }
+
+            StringBuilder resultBuilder = new StringBuilder();
+            for (int teamNo = 0; teamNo < teams.Count; teamNo++)
+            {
+                resultBuilder.AppendLine($"{teamNo + 1}조 : {string.Join(", ", teams[teamNo])}");
+            }
+
+            TEXT_랜덤조편성_결과.Text = resultBuilder.ToString();
+        }
+
 
 
         private void TEXT_제출인원관리_참여인원_TextChanged(object sender, TextChangedEventArgs e)
@@ -385,10 +588,7 @@ namespace LM_JARVIS
 
         }
 
-        private void BUTTON_제출인원관리_참여인원확인_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -417,7 +617,6 @@ namespace LM_JARVIS
         {
 
         }
-
 
     }
 }
